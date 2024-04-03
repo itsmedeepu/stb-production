@@ -1,0 +1,7 @@
+.datagrid-header {
+  border: 1px solid black; /* Border style for headers */
+}
+
+.datagrid-cell {
+  border: 1px solid black; /* Border style for cells */
+}
