@@ -28,94 +28,94 @@ function App() {
     phone: "",
   });
 
-  // const url = "https://stb-yh9x.onrender.com/api/v1/stb";
+  const url = "https://stb-yh9x.onrender.com/api/v1/stb";
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios
-  //     .get(url + "/getstbs")
-  //     .then((response) => {
-  //       const updatedStbs = response.data.data.map((stb, index) => ({
-  //         ...stb,
-  //         si_no: index + 1,
-  //       }));
-  //       setStbs(updatedStbs);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error fetching data:", err);
-  //       setLoading(false);
-  //     });
-  // }, []);
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(url + "/getstbs")
+      .then((response) => {
+        const updatedStbs = response.data.data.map((stb, index) => ({
+          ...stb,
+          si_no: index + 1,
+        }));
+        setStbs(updatedStbs);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+        setLoading(false);
+      });
+  }, []);
 
-  // const columns = [
-  //   { field: "si_no", headerName: "SI/NO", width: 100 },
-  //   { field: "stbid", headerName: "STB ID", width: 130 },
-  //   { field: "name", headerName: "NAME", width: 130 },
-  //   { field: "phone", headerName: "PHONE", width: 130 },
-  //   {
-  //     field: "edit",
-  //     headerName: "EDIT",
-  //     width: 100,
-  //     renderCell: (params) => (
-  //       <EditIcon
-  //         style={{ cursor: "pointer" }}
-  //         onClick={() => handleClickEdit(params.row)}
-  //       />
-  //     ),
-  //   },
-  // ];
+  const columns = [
+    { field: "si_no", headerName: "SI/NO", width: 100 },
+    { field: "stbid", headerName: "STB ID", width: 130 },
+    { field: "name", headerName: "NAME", width: 130 },
+    { field: "phone", headerName: "PHONE", width: 130 },
+    {
+      field: "edit",
+      headerName: "EDIT",
+      width: 100,
+      renderCell: (params) => (
+        <EditIcon
+          style={{ cursor: "pointer" }}
+          onClick={() => handleClickEdit(params.row)}
+        />
+      ),
+    },
+  ];
 
-  // const handleClickEdit = (data) => {
-  //   modalRef.current.openModal();
-  //   setObj(data);
-  // };
+  const handleClickEdit = (data) => {
+    modalRef.current.openModal();
+    setObj(data);
+  };
 
-  // const handleSaveChanges = () => {
-  //   axios
-  //     .post(url + "/update/" + obj._id, obj)
-  //     .then((resp) => {
-  //       toast.success(`${resp.data.message}`, {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //       setStbs((prevStbs) =>
-  //         prevStbs.map((stb) =>
-  //           stb.stbid === obj.stbid ? { ...stb, ...obj } : stb
-  //         )
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-  //     });
+  const handleSaveChanges = () => {
+    axios
+      .post(url + "/update/" + obj._id, obj)
+      .then((resp) => {
+        toast.success(`${resp.data.message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setStbs((prevStbs) =>
+          prevStbs.map((stb) =>
+            stb.stbid === obj.stbid ? { ...stb, ...obj } : stb
+          )
+        );
+      })
+      .catch((error) => {
+        alert(error);
+      });
 
-  //   modalRef.current.closeModal();
-  // };
+    modalRef.current.closeModal();
+  };
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setObj((prevObj) => ({
-  //     ...prevObj,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setObj((prevObj) => ({
+      ...prevObj,
+      [name]: value,
+    }));
+  };
 
-  // const handleCloseModal = () => {
-  //   setObj({
-  //     name: "",
-  //     phone: "",
-  //   });
-  // };
+  const handleCloseModal = () => {
+    setObj({
+      name: "",
+      phone: "",
+    });
+  };
 
   return (
     <>
-      {/* <div style={{ width: "50%", margin: "auto" }}>
+      <div style={{ width: "50%", margin: "auto" }}>
         {loading ? (
           <CircularProgress />
         ) : (
@@ -199,8 +199,8 @@ function App() {
           Update
         </Button>
       </Modal>
-      <ToastContainer /> */}
-      <h1>Note: Operator changes ongoing this will be resloved </h1>
+      <ToastContainer />
+      {/* <h1>Note: Operator changes ongoing this will be resloved </h1> */}
     </>
   );
 }
