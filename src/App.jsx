@@ -16,6 +16,7 @@ function App() {
   const [stbs, setStbs] = useState([]);
   const [loading, setLoading] = useState(false);
   const modalRef = useRef();
+  const [error, setError] = useState(false);
   const [editStb, setEditStb] = useState({
     // Changed from name to stbid
     name: "",
@@ -71,7 +72,7 @@ function App() {
     setObj(data);
   };
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = (event) => {
     axios
       .post(url + "/update/" + obj._id, obj)
       .then((resp) => {
@@ -90,15 +91,16 @@ function App() {
             stb.stbid === obj.stbid ? { ...stb, ...obj } : stb
           )
         );
+        modalRef.current.closeModal();
       })
       .catch((error) => {
+        modalRef.current.closeModal();
         alert(error);
       });
-
-    modalRef.current.closeModal();
   };
 
   const handleInputChange = (event) => {
+    event.preventDefault();
     const { name, value } = event.target;
     setObj((prevObj) => ({
       ...prevObj,
@@ -117,7 +119,12 @@ function App() {
     <>
       <div style={{ width: "50%", margin: "auto" }}>
         {loading ? (
-          <CircularProgress />
+          <>
+            <CircularProgress /> <h3>Loading.... </h3>
+            <p>
+              Note: It takes some time to fetch data from backend server.....
+            </p>{" "}
+          </>
         ) : (
           <DataGrid
             rows={stbs}
@@ -198,6 +205,7 @@ function App() {
         >
           Update
         </Button>
+        {loading && <CircularProgress />}
       </Modal>
       <ToastContainer />
       {/* <h1>Note: Operator changes ongoing this will be resloved </h1> */}
